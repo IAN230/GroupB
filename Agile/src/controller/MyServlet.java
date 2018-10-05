@@ -1,25 +1,27 @@
-package demo1;
+package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
+import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.NameDAO;
+import model.Name;
+
 /**
- * Servlet implementation class test
+ * Servlet implementation class MyServlet
  */
-@WebServlet("/test")
-public class test extends HttpServlet {
+@WebServlet("/MyServlet")
+public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test() {
+    public MyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +31,12 @@ public class test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		System.out.println("checkin for name in db");
+		String name = request.getParameter("name");
+		NameDAO.instance.checkFirstName(name);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
@@ -38,10 +45,16 @@ public class test extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		PrintWriter p=response.getWriter();
-		String name=request.getParameter("name");
-		p.println("<h3>Hello "+ name+"</h3>");
-		p.close();
+		
+//		PrintWriter p=response.getWriter();
+//		String name = request.getParameter("name");
+//		p.println("<p>hello"+name+"</p>");
+//		p.close();
+		String name = request.getParameter("name");
+		Name A_Name= new Name(name);
+		NameDAO.instance.saveFirstName(A_Name);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 	}
 
 }

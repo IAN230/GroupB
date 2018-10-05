@@ -4,16 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>title building</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h2>welcome 
+<p>hello world</p>
 
-</h2>
-
-<form method="post" action="test">
-Enter name:<input type="text" name="name">
-<input type="submit" value="Say hello">
+<form method="post" action="MyServlet">
+Enter Name:<input type="text" name="name">
+<input type="submit" value ="Send name to DB">
 </form>
+
+<br>
+<br>
+<form method="get" action="MyServlet">
+Enter Name:<input type="text" name="name">
+<input type="submit" value ="Check if name in DB">
+</form>
+
 </body>
 </html>
